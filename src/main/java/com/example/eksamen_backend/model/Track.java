@@ -13,6 +13,7 @@ public class Track {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     private String type; // e.g., track, field
     private String shape; // e.g., oval, straight
     private String surface; // e.g., sand, grass

@@ -4,6 +4,6 @@ public enum DisciplineEnum {
     HIGH_JUMP, // Add any other disciplines as needed
     RELAY,
     SPRINT,
-    SWIMMING,
+    SWIMMING
     // Add any other disciplines as needed
 }

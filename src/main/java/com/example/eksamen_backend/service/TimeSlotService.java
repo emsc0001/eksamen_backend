@@ -6,6 +6,7 @@ import com.example.eksamen_backend.repository.TimeSlotRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class TimeSlotService {
@@ -18,6 +19,14 @@ public class TimeSlotService {
 
     public TimeSlot createTimeSlot(TimeSlot timeSlot) {
         // Add logic to prevent double booking
+        List<TimeSlot> overlappingSlots = timeSlotRepository.findAll().stream()
+                .filter(slot -> slot.getStartTime().isBefore(timeSlot.getEndTime()) &&
+                        slot.getEndTime().isAfter(timeSlot.getStartTime()))
+                .collect(Collectors.toList());
+
+        if (!overlappingSlots.isEmpty()) {
+            throw new IllegalArgumentException("The selected time slot overlaps with another time slot.");
+        }
         return timeSlotRepository.save(timeSlot);
     }
 
