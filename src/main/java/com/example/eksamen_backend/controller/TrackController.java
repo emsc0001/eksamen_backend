@@ -1,13 +1,10 @@
 package com.example.eksamen_backend.controller;
 
 import com.example.eksamen_backend.model.Track;
-import com.example.eksamen_backend.repository.TrackRepository;
+import com.example.eksamen_backend.service.TrackService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -16,16 +13,16 @@ import java.util.List;
 public class TrackController {
 
     @Autowired
-    private TrackRepository trackRepository;
+    private TrackService trackService;
 
+    // Allow CORS for this specific endpoint from http://localhost:5173
+    @CrossOrigin(origins = "http://localhost:5173")
     @GetMapping
     public ResponseEntity<List<Track>> getAllTracks() {
-        try {
-            List<Track> tracks = trackRepository.findAll();
-            return new ResponseEntity<>(tracks, HttpStatus.OK);
-        } catch (Exception e) {
-            e.printStackTrace();
-            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        List<Track> tracks = trackService.getAllTracks();
+        if (tracks.isEmpty()) {
+            return ResponseEntity.noContent().build();
         }
+        return ResponseEntity.ok(tracks);
     }
 }

@@ -9,6 +9,7 @@ import java.util.List;
 
 @Service
 public class EventService {
+
     @Autowired
     private EventRepository eventRepository;
 
@@ -17,11 +18,25 @@ public class EventService {
     }
 
     public Event createEvent(Event event) {
-        // Add validation logic here
+        return eventRepository.save(event);
+    }
+
+    public Event updateEvent(Long id, Event eventDetails) {
+        Event event = eventRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Event not found"));
+
+        event.setName(eventDetails.getName());
+        event.setDiscipline(eventDetails.getDiscipline());
+        event.setTrack(eventDetails.getTrack());
+        event.setDuration(eventDetails.getDuration());
+        event.setMaxParticipants(eventDetails.getMaxParticipants());
+
         return eventRepository.save(event);
     }
 
     public void deleteEvent(Long id) {
-        eventRepository.deleteById(id);
+        Event event = eventRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Event not found"));
+        eventRepository.delete(event);
     }
 }

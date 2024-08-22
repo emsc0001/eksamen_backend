@@ -1,11 +1,10 @@
 package com.example.eksamen_backend.controller;
 
 import com.example.eksamen_backend.model.Discipline;
-import com.example.eksamen_backend.repository.DisciplineRepository;
+import com.example.eksamen_backend.service.DisciplineService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -14,10 +13,16 @@ import java.util.List;
 public class DisciplineController {
 
     @Autowired
-    private DisciplineRepository disciplineRepository;
+    private DisciplineService disciplineService;
 
+    // Allow CORS for this specific endpoint from http://localhost:5173
+    @CrossOrigin(origins = "http://localhost:5173")
     @GetMapping
-    public List<Discipline> getAllDisciplines() {
-        return disciplineRepository.findAll();
+    public ResponseEntity<List<Discipline>> getAllDisciplines() {
+        List<Discipline> disciplines = disciplineService.getAllDisciplines();
+        if (disciplines.isEmpty()) {
+            return ResponseEntity.noContent().build();
+        }
+        return ResponseEntity.ok(disciplines);
     }
 }
