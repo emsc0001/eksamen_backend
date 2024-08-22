@@ -8,6 +8,7 @@ public class Track {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     private String name;
     private int lanes;
     private int length;
@@ -21,7 +22,6 @@ public class Track {
     private Set<Discipline> disciplines;
 
     // Constructors, getters, and setters
-    public Track() {}
 
     public Track(String name, int lanes, int length, Set<Discipline> disciplines) {
         this.name = name;
@@ -53,7 +53,6 @@ public class Track {
     public void setLanes(int lanes) {
         this.lanes = lanes;
     }
-
 
     public int getLength() {
         return length;

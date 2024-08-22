@@ -7,37 +7,32 @@ public class Event {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private int minimumDuration;
-    private String participantGender;
-    private String participantAgeGroup;
-    private int maximumParticipants;
+
+    private String name;
+    private int duration;
+    private String participantGroup;
 
     @ManyToOne
-    @JoinColumn(name = "discipline_id")
-    private Discipline discipline;
-
-    @ManyToOne
-    @JoinColumn(name = "track_id")
+    @JoinColumn(name = "track_id", nullable = false)
     private Track track;
 
-    @ManyToOne
-    @JoinColumn(name = "timeslot_id")
+    @OneToOne
+    @JoinColumn(name = "time_slot_id", nullable = false)
     private TimeSlot timeSlot;
 
     // Constructors, getters, and setters
-    public Event() {}
 
-    public Event(int minimumDuration, String participantGender, String participantAgeGroup, int maximumParticipants, Discipline discipline, Track track, TimeSlot timeSlot) {
-        this.minimumDuration = minimumDuration;
-        this.participantGender = participantGender;
-        this.participantAgeGroup = participantAgeGroup;
-        this.maximumParticipants = maximumParticipants;
-        this.discipline = discipline;
+    public Event() {
+    }
+
+    public Event(String name, int duration, String participantGroup, Track track, TimeSlot timeSlot) {
+        this.name = name;
+        this.duration = duration;
+        this.participantGroup = participantGroup;
         this.track = track;
         this.timeSlot = timeSlot;
     }
 
-    // Getters and setters
     public Long getId() {
         return id;
     }
@@ -46,44 +41,28 @@ public class Event {
         this.id = id;
     }
 
-    public int getMinimumDuration() {
-        return minimumDuration;
+    public String getName() {
+        return name;
     }
 
-    public void setMinimumDuration(int minimumDuration) {
-        this.minimumDuration = minimumDuration;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public String getParticipantGender() {
-        return participantGender;
+    public int getDuration() {
+        return duration;
     }
 
-    public void setParticipantGender(String participantGender) {
-        this.participantGender = participantGender;
+    public void setDuration(int duration) {
+        this.duration = duration;
     }
 
-    public String getParticipantAgeGroup() {
-        return participantAgeGroup;
+    public String getParticipantGroup() {
+        return participantGroup;
     }
 
-    public void setParticipantAgeGroup(String participantAgeGroup) {
-        this.participantAgeGroup = participantAgeGroup;
-    }
-
-    public int getMaximumParticipants() {
-        return maximumParticipants;
-    }
-
-    public void setMaximumParticipants(int maximumParticipants) {
-        this.maximumParticipants = maximumParticipants;
-    }
-
-    public Discipline getDiscipline() {
-        return discipline;
-    }
-
-    public void setDiscipline(Discipline discipline) {
-        this.discipline = discipline;
+    public void setParticipantGroup(String participantGroup) {
+        this.participantGroup = participantGroup;
     }
 
     public Track getTrack() {

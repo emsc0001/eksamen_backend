@@ -16,20 +16,14 @@ public class TimeSlotController {
     public TimeSlotController(TimeSlotService timeSlotService) {
         this.timeSlotService = timeSlotService;
     }
-
-    @GetMapping
-    public List<TimeSlot> getAllTimeSlots() {
-        return timeSlotService.findAll();
+    @GetMapping("/{id}")
+    public TimeSlot getTimeSlotById(@PathVariable Long id) {
+        return timeSlotService.getTimeSlotById(id);
     }
 
     @PostMapping
     public TimeSlot createTimeSlot(@RequestBody TimeSlot timeSlot) {
         return timeSlotService.createTimeSlot(timeSlot);
-    }
-
-    @GetMapping("/{id}")
-    public TimeSlot getTimeSlotById(@PathVariable Long id) {
-        return timeSlotService.getTimeSlotById(id);
     }
 
     @DeleteMapping("/{id}")

@@ -1,5 +1,6 @@
 package com.example.eksamen_backend.service;
 
+import com.example.eksamen_backend.exception.ResourceNotFoundException;
 import com.example.eksamen_backend.model.TimeSlot;
 import com.example.eksamen_backend.repository.TimeSlotRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,26 +10,31 @@ import java.util.List;
 
 @Service
 public class TimeSlotService {
-    private final TimeSlotRepository timeSlotRepository;
 
     @Autowired
+    private final TimeSlotRepository timeSlotRepository;
+
     public TimeSlotService(TimeSlotRepository timeSlotRepository) {
         this.timeSlotRepository = timeSlotRepository;
     }
 
-    public List<TimeSlot> findAll() {
-        return timeSlotRepository.findAll();
-    }
-
     public TimeSlot createTimeSlot(TimeSlot timeSlot) {
+        // Add logic to prevent double booking
         return timeSlotRepository.save(timeSlot);
     }
 
-    public TimeSlot getTimeSlotById(Long id) {
-        return timeSlotRepository.findById(id).orElseThrow(() -> new RuntimeException("TimeSlot not found"));
+    public List<TimeSlot> getAllTimeSlots() {
+        return timeSlotRepository.findAll();
     }
 
-    public void deleteTimeSlot(Long id) {
-        timeSlotRepository.deleteById(id);
+    public TimeSlot getTimeSlotById(Long id) {
+        return timeSlotRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("TimeSlot not found"));
+    }
+
+    public void deleteTimeSlot(Long timeSlotId) {
+        TimeSlot timeSlot = timeSlotRepository.findById(timeSlotId)
+                .orElseThrow(() -> new ResourceNotFoundException("TimeSlot not found"));
+        timeSlotRepository.delete(timeSlot);
     }
 }

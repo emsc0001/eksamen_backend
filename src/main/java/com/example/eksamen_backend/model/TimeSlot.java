@@ -2,7 +2,6 @@ package com.example.eksamen_backend.model;
 
 import jakarta.persistence.*;
 import java.time.LocalDateTime;
-import java.util.Set;
 
 @Entity
 public class TimeSlot {
@@ -13,15 +12,18 @@ public class TimeSlot {
     private LocalDateTime startTime;
     private LocalDateTime endTime;
 
-    @OneToMany(mappedBy = "timeSlot")
-    private Set<Event> events;
+    @OneToOne(mappedBy = "timeSlot", cascade = CascadeType.ALL)
+    private Event event;
 
     // Constructors, getters, and setters
-    public TimeSlot() {}
 
-    public TimeSlot(LocalDateTime startTime, LocalDateTime endTime) {
+    public TimeSlot() {
+    }
+
+    public TimeSlot(LocalDateTime startTime, LocalDateTime endTime, Event event) {
         this.startTime = startTime;
         this.endTime = endTime;
+        this.event = event;
     }
 
     public Long getId() {
@@ -48,11 +50,11 @@ public class TimeSlot {
         this.endTime = endTime;
     }
 
-    public Set<Event> getEvents() {
-        return events;
+    public Event getEvent() {
+        return event;
     }
 
-    public void setEvents(Set<Event> events) {
-        this.events = events;
+    public void setEvent(Event event) {
+        this.event = event;
     }
 }
