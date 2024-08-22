@@ -10,29 +10,17 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/events")
 public class EventController {
-
     @Autowired
     private EventService eventService;
+
+    @GetMapping
+    public List<Event> getAllEvents() {
+        return eventService.getAllEvents();
+    }
 
     @PostMapping
     public Event createEvent(@RequestBody Event event) {
         return eventService.createEvent(event);
-    }
-
-    @GetMapping
-    public List<Event> getAllEvents() {
-        return eventService.findAll();
-    }
-
-    @GetMapping("/{id}")
-    public Event getEventById(@PathVariable Long id) {
-        return eventService.getEventById(id);
-    }
-
-    @PutMapping("/{id}")
-    public Event updateEvent(@PathVariable Long id, @RequestBody Event event) {
-        event.setId(id);
-        return eventService.updateEvent(event);
     }
 
     @DeleteMapping("/{id}")

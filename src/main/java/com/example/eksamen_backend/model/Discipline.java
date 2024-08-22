@@ -1,9 +1,6 @@
 package com.example.eksamen_backend.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
 @Entity
 public class Discipline {
@@ -11,11 +8,13 @@ public class Discipline {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
+    private Integer approxDuration;
 
     public Discipline() {}
 
-    public Discipline(String name) {
+    public Discipline(String name, Integer approxDuration) {
         this.name = name;
+        this.approxDuration = approxDuration;
     }
 
     public Long getId() {
@@ -34,4 +33,11 @@ public class Discipline {
         this.name = name;
     }
 
+    public Integer getApproxDuration() {
+        return approxDuration;
+    }
+
+    public void setApproxDuration(Integer approxDuration) {
+        this.approxDuration = approxDuration;
+    }
 }

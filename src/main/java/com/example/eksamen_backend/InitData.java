@@ -1,33 +1,35 @@
 package com.example.eksamen_backend;
 
-import com.example.eksamen_backend.model.Discipline;
+import com.example.eksamen_backend.model.Event;
 import com.example.eksamen_backend.model.Track;
-import com.example.eksamen_backend.repository.DisciplineRepository;
+import com.example.eksamen_backend.model.TimeSlot;
+import com.example.eksamen_backend.enums.DisciplineEnum;
+import com.example.eksamen_backend.repository.EventRepository;
 import com.example.eksamen_backend.repository.TrackRepository;
+import com.example.eksamen_backend.repository.TimeSlotRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-
-import java.util.HashSet;
-import java.util.Set;
 
 @Configuration
 public class InitData {
 
     @Bean
-    CommandLineRunner initDatabase(TrackRepository trackRepository, DisciplineRepository disciplineRepository) {
+    CommandLineRunner initialData(EventRepository eventRepository, TrackRepository trackRepository, TimeSlotRepository timeSlotRepository) {
         return args -> {
-            Discipline discipline1 = new Discipline("100 meters");
-            Discipline discipline2 = new Discipline("200 meters");
-            disciplineRepository.save(discipline1);
-            disciplineRepository.save(discipline2);
+            // Create sample Track and TimeSlot objects
+            Track track = new Track("Track 1", 8, 400);
+            trackRepository.save(track);
 
-            Set<Discipline> disciplines = new HashSet<>();
-            disciplines.add(discipline1);
-            disciplines.add(discipline2);
+            TimeSlot timeSlot = new TimeSlot("09:00-10:00");
+            timeSlotRepository.save(timeSlot);
 
-            trackRepository.save(new Track("Track A", 8, 400, disciplines));
-            trackRepository.save(new Track("Track B", 6, 200, disciplines));
+            // Create Event objects with Track and TimeSlot
+            Event event1 = new Event("Sample Event 1", 60, 100, DisciplineEnum.SWIMMING, track, timeSlot);
+            Event event2 = new Event("Sample Event 2", 90, 150, DisciplineEnum.HIGH_JUMP, track, timeSlot);
+
+            eventRepository.save(event1);
+            eventRepository.save(event2);
         };
     }
 }
