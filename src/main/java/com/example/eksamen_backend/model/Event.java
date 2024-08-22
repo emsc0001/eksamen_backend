@@ -10,29 +10,31 @@ public class Event {
 
     private String name;
     private int duration;
-    private String participantGroup;
 
     @ManyToOne
-    @JoinColumn(name = "track_id", nullable = false)
+    @JoinColumn(name = "discipline_id")
+    private Discipline discipline;
+
+    @ManyToOne
+    @JoinColumn(name = "track_id")
     private Track track;
 
-    @OneToOne
-    @JoinColumn(name = "time_slot_id", nullable = false)
+    @ManyToOne
+    @JoinColumn(name = "timeslot_id")
     private TimeSlot timeSlot;
 
     // Constructors, getters, and setters
+    public Event() {}
 
-    public Event() {
-    }
-
-    public Event(String name, int duration, String participantGroup, Track track, TimeSlot timeSlot) {
+    public Event(String name, int duration, Discipline discipline, Track track, TimeSlot timeSlot) {
         this.name = name;
         this.duration = duration;
-        this.participantGroup = participantGroup;
+        this.discipline = discipline;
         this.track = track;
         this.timeSlot = timeSlot;
     }
 
+    // Getters and setters
     public Long getId() {
         return id;
     }
@@ -57,12 +59,12 @@ public class Event {
         this.duration = duration;
     }
 
-    public String getParticipantGroup() {
-        return participantGroup;
+    public Discipline getDiscipline() {
+        return discipline;
     }
 
-    public void setParticipantGroup(String participantGroup) {
-        this.participantGroup = participantGroup;
+    public void setDiscipline(Discipline discipline) {
+        this.discipline = discipline;
     }
 
     public Track getTrack() {

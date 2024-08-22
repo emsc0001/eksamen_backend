@@ -21,8 +21,10 @@ public class Track {
     )
     private Set<Discipline> disciplines;
 
-    // Constructors, getters, and setters
+    // Standardkonstruktor
+    public Track() {}
 
+    // Konstruktor med argumenter
     public Track(String name, int lanes, int length, Set<Discipline> disciplines) {
         this.name = name;
         this.lanes = lanes;
@@ -30,6 +32,7 @@ public class Track {
         this.disciplines = disciplines;
     }
 
+    // Getters og Setters
     public Long getId() {
         return id;
     }

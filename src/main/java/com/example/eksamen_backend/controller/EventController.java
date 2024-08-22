@@ -3,7 +3,6 @@ package com.example.eksamen_backend.controller;
 import com.example.eksamen_backend.model.Event;
 import com.example.eksamen_backend.service.EventService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -12,33 +11,32 @@ import java.util.List;
 @RequestMapping("/api/events")
 public class EventController {
 
-    private final EventService eventService;
-
     @Autowired
-    public EventController(EventService eventService) {
-        this.eventService = eventService;
-    }
+    private EventService eventService;
 
     @PostMapping
-    public ResponseEntity<Event> createEvent(@RequestBody Event event) {
-        Event newEvent = eventService.createEvent(event);
-        return ResponseEntity.ok(newEvent);
+    public Event createEvent(@RequestBody Event event) {
+        return eventService.createEvent(event);
     }
 
     @GetMapping
     public List<Event> getAllEvents() {
-        return eventService.getAllEvents();
+        return eventService.findAll();
+    }
+
+    @GetMapping("/{id}")
+    public Event getEventById(@PathVariable Long id) {
+        return eventService.getEventById(id);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Event> updateEvent(@PathVariable Long id, @RequestBody Event eventDetails) {
-        Event updatedEvent = eventService.updateEvent(id, eventDetails);
-        return ResponseEntity.ok(updatedEvent);
+    public Event updateEvent(@PathVariable Long id, @RequestBody Event event) {
+        event.setId(id);
+        return eventService.updateEvent(event);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteEvent(@PathVariable Long id) {
+    public void deleteEvent(@PathVariable Long id) {
         eventService.deleteEvent(id);
-        return ResponseEntity.noContent().build();
     }
 }
