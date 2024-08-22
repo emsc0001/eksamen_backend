@@ -11,10 +11,8 @@ public class Discipline {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
-    private String ApproxDuration;
 
-    public Discipline() {
-    }
+    public Discipline() {}
 
     public Discipline(String name) {
         this.name = name;
@@ -36,11 +34,4 @@ public class Discipline {
         this.name = name;
     }
 
-    public String getApproxDuration() {
-        return ApproxDuration;
-    }
-
-    public void setApproxDuration(String approxDuration) {
-        ApproxDuration = approxDuration;
-    }
 }
