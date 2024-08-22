@@ -1,7 +1,9 @@
 package com.example.eksamen_backend.enums;
 
 public enum DisciplineEnum {
+    HIGH_JUMP, // Add any other disciplines as needed
+    RELAY,
+    SPRINT,
     SWIMMING,
-    HIGH_JUMP,
-    RELAY_RACE
+    // Add any other disciplines as needed
 }

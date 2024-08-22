@@ -10,8 +10,11 @@ import java.util.List;
 @Service
 public class TrackService {
 
-    @Autowired
-    private TrackRepository trackRepository;
+    private final TrackRepository trackRepository;
+
+    public TrackService(TrackRepository trackRepository) {
+        this.trackRepository = trackRepository;
+    }
 
     public List<Track> getAllTracks() {
         return trackRepository.findAll();

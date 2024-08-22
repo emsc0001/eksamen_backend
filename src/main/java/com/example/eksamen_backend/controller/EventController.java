@@ -15,25 +15,21 @@ public class EventController {
     @Autowired
     private EventService eventService;
 
-    // Allow CORS for this specific endpoint from http://localhost:5173
-    @CrossOrigin(origins = "http://localhost:5173")
     @GetMapping
     public ResponseEntity<List<Event>> getAllEvents() {
-        List<Event> events = eventService.getAllEvents();
-        if (events.isEmpty()) {
-            return ResponseEntity.noContent().build();
-        }
-        return ResponseEntity.ok(events);
+        return ResponseEntity.ok(eventService.getAllEvents());
     }
 
-    @CrossOrigin(origins = "http://localhost:5173")
     @PostMapping
     public ResponseEntity<Event> createEvent(@RequestBody Event event) {
-        Event createdEvent = eventService.createEvent(event);
-        return ResponseEntity.status(201).body(createdEvent);
+        try {
+            Event createdEvent = eventService.createEvent(event);
+            return ResponseEntity.status(201).body(createdEvent);
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.badRequest().body(null);
+        }
     }
 
-    @CrossOrigin(origins = "http://localhost:5173")
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteEvent(@PathVariable Long id) {
         eventService.deleteEvent(id);

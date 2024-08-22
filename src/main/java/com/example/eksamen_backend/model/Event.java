@@ -1,29 +1,46 @@
 package com.example.eksamen_backend.model;
 
 import com.example.eksamen_backend.enums.DisciplineEnum;
+import com.example.eksamen_backend.enums.GenderEnum;
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 
+
+@Setter
+@Getter
 @Entity
 public class Event {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private int minimumDuration; // in minutes
-    private String participantGender;
+
+    private String name;
     private String participantAgeGroup;
-    private int maxParticipants;
+    private GenderEnum participantGender;
+    private int minimumDuration;
+    private DisciplineEnum discipline;
 
     @ManyToOne
-    @JoinColumn(name = "discipline_id")
-    private Discipline discipline;
-
-    @ManyToOne
-    @JoinColumn(name = "track_id")
     private Track track;
 
     @ManyToOne
-    @JoinColumn(name = "time_slot_id")
     private TimeSlot timeSlot;
 
+    // Default constructor
+    public Event() {
+    }
+
+    // Constructor without maximumParticipants
+    public Event(String name, String participantAgeGroup, GenderEnum participantGender, int minimumDuration, DisciplineEnum discipline, Track track, TimeSlot timeSlot) {
+        this.name = name;
+        this.participantAgeGroup = participantAgeGroup;
+        this.participantGender = participantGender;
+        this.minimumDuration = minimumDuration;
+        this.discipline = discipline;
+        this.track = track;
+        this.timeSlot = timeSlot;
+    }
 
 }

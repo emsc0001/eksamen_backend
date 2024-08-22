@@ -1,9 +1,13 @@
 package com.example.eksamen_backend.model;
 
-import com.example.eksamen_backend.enums.DisciplineEnum;
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
+
 import java.util.List;
 
+@Setter
+@Getter
 @Entity
 public class Track {
     @Id
@@ -22,59 +26,18 @@ public class Track {
             inverseJoinColumns = @JoinColumn(name = "discipline_id"))
     private List<Discipline> disciplines;
 
-    public Long getId() {
-        return id;
-    }
+    // No-argument constructor
+    public Track() {}
 
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getType() {
-        return type;
-    }
-
-    public void setType(String type) {
+    // Constructor with parameters
+    public Track(String type, String shape, String surface, int length, int lanes) {
         this.type = type;
-    }
-
-    public String getShape() {
-        return shape;
-    }
-
-    public void setShape(String shape) {
         this.shape = shape;
-    }
-
-    public String getSurface() {
-        return surface;
-    }
-
-    public void setSurface(String surface) {
         this.surface = surface;
-    }
-
-    public int getLength() {
-        return length;
-    }
-
-    public void setLength(int length) {
         this.length = length;
-    }
-
-    public int getLanes() {
-        return lanes;
-    }
-
-    public void setLanes(int lanes) {
         this.lanes = lanes;
     }
 
-    public List<Discipline> getDisciplines() {
-        return disciplines;
-    }
+    // Getters and Setters
 
-    public void setDisciplines(List<Discipline> disciplines) {
-        this.disciplines = disciplines;
-    }
 }

@@ -1,12 +1,17 @@
 package com.example.eksamen_backend.model;
 
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 
+@Setter
+@Getter
 @Entity
 public class Discipline {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     private String name;
     private Integer approxDuration;
 
@@ -17,27 +22,4 @@ public class Discipline {
         this.approxDuration = approxDuration;
     }
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public Integer getApproxDuration() {
-        return approxDuration;
-    }
-
-    public void setApproxDuration(Integer approxDuration) {
-        this.approxDuration = approxDuration;
-    }
 }

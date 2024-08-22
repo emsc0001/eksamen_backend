@@ -3,7 +3,6 @@ package com.example.eksamen_backend.service;
 import com.example.eksamen_backend.exception.ResourceNotFoundException;
 import com.example.eksamen_backend.model.TimeSlot;
 import com.example.eksamen_backend.repository.TimeSlotRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -11,7 +10,6 @@ import java.util.List;
 @Service
 public class TimeSlotService {
 
-    @Autowired
     private final TimeSlotRepository timeSlotRepository;
 
     public TimeSlotService(TimeSlotRepository timeSlotRepository) {
