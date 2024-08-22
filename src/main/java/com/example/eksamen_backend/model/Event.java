@@ -6,9 +6,7 @@ import jakarta.persistence.*;
 public class Event {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-
     private Long id;
-
     private int minimumDuration;
     private String participantGender;
     private String participantAgeGroup;
@@ -22,16 +20,24 @@ public class Event {
     @JoinColumn(name = "track_id")
     private Track track;
 
-    public Event(Long id, int minimumDuration, String participantGender, String participantAgeGroup, int maximumParticipants, Discipline discipline, Track track) {
-        this.id = id;
+    @ManyToOne
+    @JoinColumn(name = "timeslot_id")
+    private TimeSlot timeSlot;
+
+    // Constructors, getters, and setters
+    public Event() {}
+
+    public Event(int minimumDuration, String participantGender, String participantAgeGroup, int maximumParticipants, Discipline discipline, Track track, TimeSlot timeSlot) {
         this.minimumDuration = minimumDuration;
         this.participantGender = participantGender;
         this.participantAgeGroup = participantAgeGroup;
         this.maximumParticipants = maximumParticipants;
         this.discipline = discipline;
         this.track = track;
+        this.timeSlot = timeSlot;
     }
 
+    // Getters and setters
     public Long getId() {
         return id;
     }
@@ -86,5 +92,13 @@ public class Event {
 
     public void setTrack(Track track) {
         this.track = track;
+    }
+
+    public TimeSlot getTimeSlot() {
+        return timeSlot;
+    }
+
+    public void setTimeSlot(TimeSlot timeSlot) {
+        this.timeSlot = timeSlot;
     }
 }

@@ -9,10 +9,16 @@ import jakarta.persistence.Id;
 public class Discipline {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-
     private Long id;
     private String name;
     private String ApproxDuration;
+
+    public Discipline() {
+    }
+
+    public Discipline(String name) {
+        this.name = name;
+    }
 
     public Long getId() {
         return id;
