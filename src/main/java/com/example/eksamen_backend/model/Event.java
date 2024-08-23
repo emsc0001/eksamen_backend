@@ -2,6 +2,7 @@ package com.example.eksamen_backend.model;
 
 import com.example.eksamen_backend.enums.DisciplineEnum;
 import com.example.eksamen_backend.enums.GenderEnum;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -25,8 +26,12 @@ public class Event {
     @ManyToOne
     private Track track;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "timeSlot_id")
+    @JsonBackReference
     private TimeSlot timeSlot;
+
+
 
     // Default constructor
     public Event() {

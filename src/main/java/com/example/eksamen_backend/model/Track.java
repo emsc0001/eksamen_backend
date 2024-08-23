@@ -38,7 +38,4 @@ public class Track {
         this.length = length;
         this.lanes = lanes;
     }
-
-    // Getters and Setters
-
 }

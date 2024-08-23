@@ -4,11 +4,9 @@ import com.example.eksamen_backend.dto.EventDTO;
 import com.example.eksamen_backend.enums.DisciplineEnum;
 import com.example.eksamen_backend.enums.GenderEnum;
 import com.example.eksamen_backend.model.Event;
-import com.example.eksamen_backend.model.TimeSlot;
 import com.example.eksamen_backend.model.Track;
 import com.example.eksamen_backend.repository.TrackRepository;
 import com.example.eksamen_backend.service.EventService;
-import com.example.eksamen_backend.service.TimeSlotService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -22,15 +20,12 @@ public class EventController {
 
     private final EventService eventService;
     private final TrackRepository trackRepository;
-    private final TimeSlotService timeSlotService;
 
     @Autowired
-    public EventController(EventService eventService, TrackRepository trackRepository, TimeSlotService timeSlotService) {
+    public EventController(EventService eventService, TrackRepository trackRepository) {
         this.eventService = eventService;
         this.trackRepository = trackRepository;
-        this.timeSlotService = timeSlotService;
     }
-
 
     @GetMapping
     public List<Event> getAllEvents() {
@@ -62,11 +57,7 @@ public class EventController {
         }
     }
 
-
-
-
-
-    @PutMapping("/events/{id}")
+    @PutMapping("/{id}")
     public ResponseEntity<Event> updateEvent(@PathVariable Long id, @RequestBody EventDTO eventDTO) {
         return ResponseEntity.ok(eventService.updateEvent(id, eventDTO));
     }

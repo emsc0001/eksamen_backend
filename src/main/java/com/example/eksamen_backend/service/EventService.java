@@ -26,13 +26,22 @@ public class EventService {
         Track track = trackRepository.findById(event.getTrack().getId())
                 .orElseThrow(() -> new IllegalArgumentException("Invalid track ID"));
 
-        if (!track.getDisciplines().contains(event.getDiscipline())) {
+        // Log the disciplines for debugging purposes
+        track.getDisciplines().forEach(d -> System.out.println("Track Discipline: " + d.getName()));
+        System.out.println("Event Discipline: " + event.getDiscipline());
+
+        // Use .equalsIgnoreCase() if you need to ignore case sensitivity
+        boolean compatible = track.getDisciplines().stream()
+                .anyMatch(d -> d.getName().equalsIgnoreCase(event.getDiscipline().name()));
+
+        if (!compatible) {
             throw new IllegalArgumentException("Track is not compatible with the chosen discipline.");
         }
 
-        // Save the event to the database
         return eventRepository.save(event);
     }
+
+
 
 
     public Event updateEvent(Long id, EventDTO eventDTO) {
